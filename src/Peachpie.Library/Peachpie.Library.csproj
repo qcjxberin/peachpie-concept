@@ -1,0 +1,53 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="..\..\build\Targets\Settings.props" />
+  <PropertyGroup>
+    <TargetFrameworks>netstandard2.0</TargetFrameworks>
+    <NoWarn>$(NoWarn);1591;1574</NoWarn>
+    <AssemblyName>Peachpie.Library</AssemblyName>
+    <PackageId>Peachpie.Library</PackageId>
+    <PackageTags>peachpie;library</PackageTags>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Description>Peachpie PHP language library functions.</Description>
+    <RootNamespace>Pchp.Library</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Remove="Resources\abbreviations.txt" />
+    <None Remove="Resources\translit.def" />
+    <None Remove="Resources\WindowsTZ.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\abbreviations.txt" />
+    <EmbeddedResource Include="Resources\translit.def" />
+    <EmbeddedResource Include="Resources\WindowsTZ.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Peachpie.Runtime\Peachpie.Runtime.csproj" />
+  </ItemGroup>
+ 
+  <ItemGroup>
+    <Compile Update="Resources\InfoResources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>InfoResources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Resources\InfoResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>InfoResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
+</Project>

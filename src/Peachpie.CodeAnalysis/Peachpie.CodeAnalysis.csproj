@@ -1,0 +1,33 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="..\..\build\Targets\Settings.props" />
+  <PropertyGroup>
+    <TargetFrameworks>netstandard2.0</TargetFrameworks>
+    <NoWarn>$(NoWarn);1591</NoWarn>
+    <AssemblyName>Peachpie.CodeAnalysis</AssemblyName>
+    <PackageId>Peachpie.CodeAnalysis</PackageId>
+    <PackageTags>php;peachpie;dotnet;compiler</PackageTags>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Description>Peachpie PHP language compiler platform.</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Devsense.Php.Parser" Version="1.4.82" />
+    <PackageReference Include="Devsense.Php.Phar" Version="1.0.15" />
+    <PackageReference Include="Peachpie.Microsoft.CodeAnalysis" Version="0.9.2" />
+    <PackageReference Include="System.Collections.Immutable" Version="1.5.0" />
+    <PackageReference Include="System.Reflection.Metadata" Version="1.6.0" />
+    <PackageReference Include="Peachpie.Compiler.Diagnostics" Version="1.0.1" Condition=" '$(Configuration)' == 'Release' " />
+    
+    <!-- Prevent package downgrades -->
+    <PackageReference Include="System.Collections" Version="4.3.0" />  
+    <PackageReference Include="System.Diagnostics.Debug" Version="4.3.0" />  
+    <PackageReference Include="System.Resources.ResourceManager" Version="4.3.0" />  
+    <PackageReference Include="System.Runtime.Extensions" Version="4.3.0" />  
+    <PackageReference Include="System.Runtime.Handles" Version="4.3.0" />
+    <PackageReference Include="System.Runtime.InteropServices" Version="4.3.0" />
+    <PackageReference Include="System.Text.Encoding.Extensions" Version="4.3.0" />  
+    <PackageReference Include="System.Threading" Version="4.3.0" />  
+  </ItemGroup>
+
+</Project>

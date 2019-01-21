@@ -53,7 +53,6 @@ artifacts/
 *.pdb
 *.pgc
 *.pgd
-*.rsp
 *.sbr
 *.tlb
 *.tli
@@ -275,5 +274,7 @@ $RECYCLE.BIN/
 *.msm
 *.msp
 
-# Windows shortcuts
+# Generated files
 *.lnk
+**/launchSettings.json
+**/Peachpie.Version.props

@@ -1,139 +1,94 @@
-# Peachpie Compiler
-### The open-source PHP compiler to .NET
-http://www.peachpie.io | https://twitter.com/pchpcompiler
+<h1 align="center">
+  <br>
+  <img src="https://www.peachpie.io/wp-content/uploads/2017/10/full-orange-400x100.png" width="400" alt="PeachPie"/>
+  <br>
+  PeachPie Compiler
+  <br>
+</h1>
 
-_If you would like to reward us for our hard work on this project, we will be very happy to accept donations of all amounts._ [![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=BY2V98VY57K2E)
+<h3 align="center">The open-source PHP compiler to .NET</h3>
 
-## What is Peachpie?
-Peachpie is a modern PHP compiler based on Roslyn by Microsoft and drawing from our popular Phalanger project. It allows PHP to be executed within the .NET framework, thereby opening the door for PHP developers into the world of .NET – and vice versa.
+> We recommend using the project with caution and testing it thoroughly before utilizing PeachPie in a production environment. There may still be inconsistencies and incompatibilities with the PHP language; if you run into any issues, kindly let us know and we'll do our best to address them. Take a look at our [Roadmap](https://docs.peachpie.io/roadmap/) to see which features and extensions we still have to implement.
 
-The goal of the project is to compile legacy PHP code into portable class libraries, which enables developers to build cross-platform apps and libraries for Microsoft platforms quickly and easily. As a direct result, PHP applications powered by Peachpie would run across all devices and operating systems that are able to run .NET.
+<p align="center">
+<a href="http://www.nuget.org/profiles/peachpie"><img src="https://img.shields.io/nuget/v/Peachpie.App.svg?style=flat"></a>
+<a href="https://docs.peachpie.io"><img src="https://img.shields.io/badge/docs-peachpie.io-green.svg"></a>  
+<a href="https://gitter.im/iolevel/peachpie"><img src="https://badges.gitter.im/iolevel/peachpie.svg"></a>
+<a href="http://www.peachpie.io"><img src="https://img.shields.io/badge/Web-peachpie.io-orange.svg"></a>
+<a href="https://twitter.com/pchpcompiler"><img src="https://img.shields.io/badge/Twitter-%40pchpcompiler-blue.svg"></a>
+<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=BY2V98VY57K2E" target="_blank"><img src="https://img.shields.io/badge/$-donate-ff69b4.svg?maxAge=2592000&amp;style=flat"></a>
+</p>
 
-Besides granting PHP programmers access to cross-platform development, Peachpie allows for a full compatibility with .NET, which enables the development of hybrid applications, where part of the code is written in C# and part in PHP. The parts will be entirely compatible and can communicate seamlessly, all within the .NET framework.
+[<img align="right" src="https://github.com/peachpiecompiler/peachpie/blob/master/docs/logos/dotnet-foundation-logo.png" width="100" />](https://www.dotnetfoundation.org/)
+We are now a member of the [.NET Foundation](https://www.dotnetfoundation.org/about)!
 
-Peachpie makes use of Microsoft's Roslyn compiler and years worth of developing Phalanger, where the design for this compiler was established and valuable experience was obtained in the process. This, together with an extensive type analysis, allows us to set the objective of Peachpie to be a significant performance increase of PHP applications and components. 
+## Continuous Integration
 
-## Status
-Please note that the status is dynamic; Peachpie is a work in progress, which means that this list frequently changes and is updated on a regular basis. We are currently focused on providing a first demo.
+| Service  | Platform  | Build Status  |
+|---|---|---|
+| Travis CI | Ubuntu  | [![Travis Build status](https://api.travis-ci.org/peachpiecompiler/peachpie.svg?branch=master)](https://travis-ci.org/peachpiecompiler/peachpie)  |
+| AppVeyor  | VS/Windows  | [![AppVeyor Build status](https://ci.appveyor.com/api/projects/status/1ym8cd838l0od9oa?svg=true)](https://ci.appveyor.com/project/dotnetfoundation/peachpie) |
+| Azure DevOps | Windows | ![VSTS Build Status](https://iolevel.visualstudio.com/_apis/public/build/definitions/bd7dcca1-8515-44f8-81d0-bb2acc03d949/1/badge)|
 
-###### Compiler:
-   :white_check_mark: Microsoft.CodeAnalysis (Roslyn) (ILBuilder, ObjectPool, MetadataReader, …)   
-   :white_check_mark: Abstract Syntax Tree (AST)   
-   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:white_medium_square: AST based on Roslyn ISymbol (optional)   
-   :white_check_mark: Temporary parser (PHP5)   
-   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; :white_medium_square: Parser (PHP7) based on PHP7 and SyntaxTree (optional)   
-   :white_check_mark: Symbol tables, Metadata   
-   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:white_check_mark: Source symbols   
-   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:white_check_mark: .NET references (for core and Packages)     
-   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:white_check_mark:Types   
-   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:white_check_mark: Methods, Parameters, Locals  
-   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:white_medium_square: Fields     
-   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:white_medium_square: Properties   
-   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:white_medium_square: Interfaces   
-   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:white_medium_square: Constants  
-   :white_medium_square: Control Flow Graph (CFG), Binder (Roslyn IOperation)     
-   :white_medium_square: SemanticModel (gets symbols to be used by emit)   
-   :white_medium_square: GetPhpType  
-   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:white_medium_square: Type Analysis    
-   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:white_medium_square: AST transformation   
-   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:white_medium_square: Constant propagation   
-   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:white_medium_square: Analyze subsequent string concatenations to optimize as one   
-   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:white_medium_square: Value range analysis (value fits into Long, no need for Double)     
-   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:white_medium_square: Inter-procedure analysis     
-   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:white_medium_square: Security analysis     
-   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:white_medium_square: Parallelization (as a distributed algorithm)           
-   :white_medium_square: Code generation (Translation into .NET MSIL assembly)   
-   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:white_medium_square: Type system, conversions   
-   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:white_medium_square: Routines declaration   
-   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:white_medium_square: Types declaration   
-   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:white_medium_square: Destructors (as Dispose)   
-   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:white_medium_square: Ignore empty destructors   
-   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:white_medium_square: Magic methods  
-   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:white_medium_square: Methods overriding   
-   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:white_medium_square: Places (locals, context)   
-   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:white_medium_square: Blocks compiler   
-   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:white_medium_square: Expressions emit         
-   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:white_medium_square: Routine call (and Operators)   
-   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:white_medium_square: Overload resolution   
-   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:white_medium_square: Object instantiation   
-   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:white_medium_square: Field setter/getter   
-   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:white_medium_square: Array access   
-   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:white_medium_square: Chains   
-   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:white_medium_square: Indirects (var, func, const)     
-   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:white_medium_square: Routine generalization    
-   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:white_medium_square: Application runtime tables  
-   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:white_medium_square: Inclusion   
-   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:white_medium_square: Function with variable arguments count (params)   
-   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:white_medium_square: Traits (AST transformation: merge trait with a class declaration)     
-   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:white_medium_square: Closures     
-   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:white_medium_square: Generators     
-   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:white_medium_square: Generics     
-   :white_medium_square: Portable class library   
-   :white_medium_square: Console App: entry script invocation   
-   :white_medium_square: Web App: request handler => Script invocation 
+## What is PeachPie?
+PeachPie is a modern PHP compiler based on the Microsoft Roslyn compiler platform and drawing from our popular Phalanger project. It allows PHP to be executed within the .NET framework, thereby opening the door for PHP developers into the world of .NET – and vice versa.
 
-###### Runtime:
-   :white_medium_square: Type system  
-   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:white_medium_square: Bool, Number (Long, Double), String, Object, Array, Resource, Null   
-   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:white_medium_square: Extended: UnicodeString, SimpleArray (not keyed, same type value)  
-   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:white_medium_square: PhpValue (Any Type runtime value)  
-   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:white_medium_square: PhpAlias (aliasing, ref counting, destructors)  
-   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:white_medium_square: Specific type (known at compile time)  
-   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:white_medium_square: Lazy copy-on-write (array, string)  
-   :white_medium_square: Operators  
-   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:white_medium_square: Generic operator mechanism for given operands  
-   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:white_medium_square: Numbers  
-   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:white_medium_square: Arrays  
-   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:white_medium_square: Strings (Unicode and binary)  
-   :white_medium_square: Inclusion (static target, dynamic target)  
-   :white_medium_square: Function call  
-   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:white_medium_square: Ambiguous function call (the one resolved at runtime)  
-   :white_medium_square: Context (actual state of program, global variables, scripts, visible functions and types)  
-   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:white_medium_square: Fast/direct global variables access  
-   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:white_medium_square: Delegates to actual functions  
-   :white_medium_square: Output (echo, buffering)  
-   :white_medium_square: Runtime Tables (PhpTypeInfo, PhpRoutineInfo, Scripts: bit vector everything indexed)  
-   :white_medium_square: Dynamic invocation/read/write  
-   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:white_medium_square: Functions  
-   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:white_medium_square: Methods  
-   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:white_medium_square: Variables  
-   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:white_medium_square: Fields  
-   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:white_medium_square: Magic methods  
-   :white_medium_square: Loop constructs, Enumerables  
-   :white_medium_square: Aliasing: PHPVALUE (is_ref, ref_count for references and objects with dtor)  
-   :white_medium_square: Constants (global, class)  
-   :white_medium_square: Static fields  
-   :white_medium_square: Static variables  
-   :white_medium_square: Reflection API  
-   :white_medium_square: Exceptions, Exception handling  
-   :white_medium_square: Destructors / Disposable  
-   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:white_medium_square: Reference counting for locals  
-   :white_medium_square: Inclusion in a local scope  
-   :white_medium_square: PHP stream  
-   :white_medium_square: Eval, create_function()  
+## Status and Compatibility
+You can find an up-to-date status of the project in our [Roadmap](https://docs.peachpie.io/roadmap/) section. Please note that the status is dynamic; PeachPie is a work in progress, which means that the list of finished and planned features frequently changes and will be updated on a regular basis. To see the current status of compatibility with the PHP language, please refer to our [Compatibility overview](https://docs.peachpie.io/php/Compatibility/). 
 
-###### API:
-   :white_medium_square: Context  
-   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:white_medium_square: Events (begin request, end request, start app, exit, ..)  
-   :white_medium_square: Script invocation  
-   :white_medium_square: Function call  
-   :white_medium_square: Reflection (Runtime Tables, PHPDoc)  
-   :white_medium_square: Code verification  
-   :white_medium_square: Compilation  
-   :white_medium_square: Global variables access  
-###### Packages:
-   :white_medium_square: Symbol tables of a referenced assembly  
-   :white_medium_square: Migrate Phalanger Class Library  
-   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:white_medium_square: Strongly typed  
-   :white_medium_square: Fast PCRE  
-   :white_medium_square: SPL  
-   :white_medium_square: Reflection  
+## Project goals
+- **Increased performance**: PeachPie's extensive type analysis and the influence of Microsoft Roslyn should provide an improved performance of PHP applications and components. 
 
-## How to build or execute?
-This project is a work in progress. Please be aware that Peachpie is not meant to be downloaded and executed at this point. Currently, this is a concept, which you can use for your inspiration, but it is not intended to be launched. 
+- **Security**: since programs run within the standardized and manageable .NET or .NET Core environment, the code is fully verifiable without any unsafe constructs. In addition, PHP applications can be distributed source-lessly for added security benefits. 
+
+- **Cross-platform development**: the project compiles legacy PHP code into portable class libraries, enabling developers to build cross-platform apps and libraries for Microsoft platforms.  
+
+- **Full .NET compatibility**: compiled programs run on the reimplemented PeachPie runtime, fully compatibly with the PHP runtime.
+
+- **Both-way interoperability**: the project allows for hybrid applications, where parts are written in C# and others in PHP. The parts will be entirely compatible and can communicate seamlessly, all within the .NET framework.  
+
+
+## How to use PeachPie
+There are currently two ways of using PeachPie via `msbuild`: in your favorite shell or comfortably in Visual Studio 2017/Visual Studio Code using our official extensions. 
+
+### Visual Studio
+Download our official [Visual Studio extension](https://marketplace.visualstudio.com/items?itemName=iolevel.peachpie-vs), which makes working with PeachPie compiler as convenient as possible. The extension allows you to easily create a new project using our templates, build & debug, profile your PHP code using the VS diagnostic tools and deploy your project to Azure:
+
+<p align="center">
+<a href="https://marketplace.visualstudio.com/items?itemName=iolevel.peachpie-vs" target="_blank"><img src="https://github.com/iolevel/peachpie-vs/blob/master/imgs/peachpie-new-project.gif?raw=true" 
+alt="Peachpie Extension" border="10" /></a> 
+</p>
+
+### Visual Studio Code 
+Grab our [VSCode extension](https://marketplace.visualstudio.com/items?itemName=iolevel.peachpie-vscode) to quickstart your development with a more lightweight editor. The extension automatically installs all required dependencies, enables the `PeachPie: Create project` command, syntax error underlining and PeachPie analytics:
+
+<p align="center">
+<a href="https://marketplace.visualstudio.com/items?itemName=iolevel.peachpie-vscode" target="_blank"><img src="https://raw.githubusercontent.com/iolevel/peachpie-vscode/master/src/Peachpie.VSCode/images/tEDLQt.gif" 
+alt="Peachpie Extension" border="10" /></a> 
+</p>
+
+### Command line building
+Alternatively, you can also work with PeachPie on the command line. Please refer to our [short introduction video](https://www.youtube.com/watch?v=GVWVInYiYLY) to see how to run the compiler on the command line and to the [Getting Started](https://docs.peachpie.io/get-started/) section in our documentation. 
 
 ## How to contribute?
-We can use all the help we can get. You can contribute to our repository, spread the word about this project, or give us a small donation to help fund the development. If you believe you have valuable knowledge and experience to add to this project, please do not hesitate to contribute to our repo – your help is much appreciated.
+We can use all the help we can get. You can contribute to our repository, spread the word about this project, or give us a small donation to help fund the development. If you believe you have valuable knowledge and experience to add to this project, please do not hesitate to contribute to our repo – your help is much appreciated. 
+
+However, please read the [Contribution Guidelines](https://github.com/peachpiecompiler/peachpie/blob/master/CONTRIBUTING.md) first and ensure you are following them. Also, we kindly ask you to respect our [Code of Conduct](https://github.com/peachpiecompiler/peachpie/blob/master/CODE_OF_CONDUCT.md) when posting or interacting with other users. 
+
+You can also contribute by donating a dollar or two to the development of PeachPie:
+<p align="center"> <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=BY2V98VY57K2E" target="_blank"><img src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif"/></a> </p>  
+
+## Providing feedback
+If you found a bug, have a question or if you have an improvement suggestion, the easiest way of providing feedback is to post it on [Gitter](https://gitter.im/iolevel/peachpie) or submit an issue here on GitHub. We try to respond as quickly as possible.
+
+
+## .NET Foundation
+<a href="https://dotnetfoundation.org"><img src="https://github.com/peachpiecompiler/peachpie/blob/master/docs/logos/dotnet-foundation-logo.png" width="150" alt=".NET Foundation"></a>
+  <br>
+This project is supported by the [.NET Foundation](http://www.dotnetfoundation.org).
+
 
 ## How to get in touch?
-We kindly ask you to be patient with your queries; you can follow us on Twitter @pchpcompiler or on Facebook. You can contact us there regarding your questions, but please understand that we do not provide support at this point. 
+If you have a problem or question, the easiest way is to submit an issue here. You can also follow us on [Twitter](https://twitter.com/pchpcompiler) or [Facebook](https://www.facebook.com/pchpcompiler/) and contact us there regarding your questions or ask the community for support on [Gitter](https://gitter.im/iolevel/peachpie), but please understand that we do not provide email support.
+
+For partnership inquiries, commercial support or other questions, please contact us via email at info@iolevel.com.

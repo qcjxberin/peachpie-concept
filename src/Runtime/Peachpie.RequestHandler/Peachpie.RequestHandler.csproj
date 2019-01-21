@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="..\..\..\build\Targets\Settings.props" />
+  <PropertyGroup>
+    <TargetFrameworks>net461</TargetFrameworks>
+    <NoWarn>$(NoWarn);1591</NoWarn>
+    <AssemblyName>Peachpie.RequestHandler</AssemblyName>
+    <PackageId>Peachpie.RequestHandler</PackageId>
+    <PackageTags>peachpie</PackageTags>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Description>Implementation of IHttpHandler (request handler) for ASP.NET Integrated Pipeline.</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Peachpie.Library\Peachpie.Library.csproj" />
+    <ProjectReference Include="..\..\Peachpie.Runtime\Peachpie.Runtime.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web" />
+  </ItemGroup>
+
+</Project>
